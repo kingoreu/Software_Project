@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
+import javax.swing.ButtonGroup;
 
 class BookingPopup {
     private JPanel formPanel;
@@ -83,21 +85,75 @@ class BookingPopup {
         List<String> reservationDetails = new ArrayList<>();
 
         reservationDetails.add(reservationNumber); // 예약 번호
-        reservationDetails.add("2024-06-01"); // 날짜 (임시)
+
+        // 현재 날짜를 추가합니다.
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+        reservationDetails.add(currentDate); // 현재 날짜
+
         reservationDetails.add("홍길동"); // 고객 이름 (임시)
         reservationDetails.add("123456"); // 고객 ID (임시)
+
+        boolean saveHotel = false, saveAirline = false, saveCar = false;
+        for (Component component : components) {
+            if (component instanceof JRadioButton) {
+                JRadioButton radioButton = (JRadioButton) component;
+                String name = radioButton.getName();
+                if (name != null) {
+                    if (name.equals("hotelRegistrationYes") && radioButton.isSelected()) {
+                        saveHotel = true;
+                    }
+                    if (name.equals("airlineRegistrationYes") && radioButton.isSelected()) {
+                        saveAirline = true;
+                    }
+                    if (name.equals("carRegistrationYes") && radioButton.isSelected()) {
+                        saveCar = true;
+                    }
+                }
+            }
+        }
 
         for (Component component : components) {
             if (component instanceof JTextField) {
                 JTextField textField = (JTextField) component;
-                reservationDetails.add(textField.getText());
+                String name = textField.getName();
+                if (name != null) {
+                    if (saveHotel && name.startsWith("hotel")) {
+                        reservationDetails.add(textField.getText());
+                    } else if (saveAirline && name.startsWith("airline")) {
+                        reservationDetails.add(textField.getText());
+                    } else if (saveCar && name.startsWith("car")) {
+                        reservationDetails.add(textField.getText());
+                    } else {
+                        reservationDetails.add("");
+                    }
+                }
             } else if (component instanceof JComboBox) {
                 JComboBox<String> comboBox = (JComboBox<String>) component;
-                reservationDetails.add(comboBox.getSelectedItem().toString());
+                String name = comboBox.getName();
+                if (name != null) {
+                    if (saveHotel && name.startsWith("hotel")) {
+                        reservationDetails.add(comboBox.getSelectedItem().toString());
+                    } else if (saveAirline && name.startsWith("airline")) {
+                        reservationDetails.add(comboBox.getSelectedItem().toString());
+                    } else if (saveCar && name.startsWith("car")) {
+                        reservationDetails.add(comboBox.getSelectedItem().toString());
+                    } else {
+                        reservationDetails.add("");
+                    }
+                }
             } else if (component instanceof JRadioButton) {
                 JRadioButton radioButton = (JRadioButton) component;
-                if (radioButton.isSelected()) {
-                    reservationDetails.add(radioButton.getText());
+                String name = radioButton.getName();
+                if (name != null) {
+                    if (saveHotel && name.startsWith("hotel") && radioButton.isSelected()) {
+                        reservationDetails.add(radioButton.getText());
+                    } else if (saveAirline && name.startsWith("airline") && radioButton.isSelected()) {
+                        reservationDetails.add(radioButton.getText());
+                    } else if (saveCar && name.startsWith("car") && radioButton.isSelected()) {
+                        reservationDetails.add(radioButton.getText());
+                    } else {
+                        reservationDetails.add("");
+                    }
                 }
             }
         }
