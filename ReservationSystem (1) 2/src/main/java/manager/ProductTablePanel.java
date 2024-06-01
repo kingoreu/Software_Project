@@ -83,13 +83,13 @@ public class ProductTablePanel extends JPanel implements Updatetablemodel  {
     
     public void settingProducts(JRadioButton btn1,JRadioButton btn2,JRadioButton btn3) {
         
-        this.hotelPanel = createAndLoadPanel("Hotel_Panel", new String[]{"비즈니스 넘버", "호텔 명", "지역", "상세 주소", "투숙객 수", "조식 여부", "룸 타입", "숙박 비용", "등록 여부"}, productData, "hotel_business_textfile.txt");
-        this.airplanePanel = createAndLoadPanel("Airplane_Panel", new String[]{"비즈니스 넘버", "항공사", "출발 지역", "도착 지역", "좌석 타입", "왕복/편도", "항공권 가격", "등록 여부"}, productData, "airplane_business_textfile.txt");
-        this.carPanel = createAndLoadPanel("Car_Panel", new String[]{"비즈니스 넘버", "자동차 회사", "대여 시간", "비용", "차종", "연료", "하이패스", "등록 여부"}, productData, "car_business_textfile.txt");
+        this.hotelPanel = createAndLoadPanel("Hotel_Panel", new String[]{"비즈니스 넘버", "사업자 넘버", "호텔 명", "지역", "상세 주소", "투숙객 수", "조식 여부", "룸 타입", "숙박 비용", "등록 여부"}, productData, "hotel_business_textfile.txt");
+        this.airplanePanel = createAndLoadPanel("Airplane_Panel", new String[]{"비즈니스 넘버", "사업자 넘버", "항공사", "출발 지역", "도착 지역", "좌석 타입", "왕복/편도", "항공권 가격", "등록 여부"}, productData, "airplane_business_textfile.txt");
+        this.carPanel = createAndLoadPanel("Car_Panel", new String[]{"비즈니스 넘버", "사업자 넘버", "자동차 회사", "대여 시간", "비용", "차종", "연료", "하이패스", "등록 여부"}, productData, "car_business_textfile.txt");
 
-        registrationColumnIndexMap.put("Hotel_Panel", 8);
-        registrationColumnIndexMap.put("Airplane_Panel", 7);
-        registrationColumnIndexMap.put("Car_Panel", 7);
+        registrationColumnIndexMap.put("Hotel_Panel", 9);
+        registrationColumnIndexMap.put("Airplane_Panel", 8);
+        registrationColumnIndexMap.put("Car_Panel", 8);
         
         tableMap.put("Hotel_Panel", hotelPanel.getProductTable());
         tableMap.put("Airplane_Panel", airplanePanel.getProductTable());
