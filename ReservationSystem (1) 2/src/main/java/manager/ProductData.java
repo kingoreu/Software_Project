@@ -18,14 +18,14 @@ import java.util.regex.Pattern;
  *
  * @author PARKSOHYUN
  */
-public class ProductData {
+public class ProductData implements Aggregate {
     private List<String[]> dataRows = new ArrayList<>();
     
     public void loadDataFromTextFile(String filename, String delimiter) {
         //테이블에 불러올 파일의 데이터 값 읽기
         dataRows.clear();
         try (
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename),"UTF-8"))) {             
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {             
             String line;
             while((line = br.readLine()) != null) {
                 String[] rowData = line.split(Pattern.quote(delimiter));
@@ -73,7 +73,9 @@ public class ProductData {
     	saveDataToFile(filename, delimiter);
     }
     
+    @Override
     public ProductIterator iterator() {
+        //Aggregate Interface 이용
         return new ProductDataIterator(dataRows);
     }
 }

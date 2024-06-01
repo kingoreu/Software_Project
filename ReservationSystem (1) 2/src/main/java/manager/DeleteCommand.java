@@ -40,7 +40,7 @@ public class DeleteCommand implements Command {
         
         // 선택한 행을 삭제
         model.removeRow(row);
-        
+        System.out.println("삭제되었습니다.");
         // 파일 데이터 갱신
         String panelName = productTablePanel.getCurrentPanelName();
         List<String[]> currentData = productTablePanel.getDataForPanel(panelName);
@@ -52,7 +52,7 @@ public class DeleteCommand implements Command {
     public void undo() {
         // 삭제한 행을 다시 추가합니다.
         model.insertRow(row, deletedRowData);
-        
+        System.out.println("삭제된 행이 복구되었습니다.");
         // 파일 데이터 갱신
         String panelName = productTablePanel.getCurrentPanelName();
         List<String[]> currentData = productTablePanel.getDataForPanel(panelName);
